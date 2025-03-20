@@ -4,6 +4,7 @@ const corsOption = {
     "http://localhost:5174",
     process.env.DASHBOARD_URL,
     process.env.PORTFOLIO_URL,
+    "https://my-portfolio-flame-two-94.vercel.app",
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
