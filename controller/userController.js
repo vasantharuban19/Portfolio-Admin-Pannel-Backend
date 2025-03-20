@@ -74,6 +74,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
 
 //! Login User
 export const login = catchAsyncErrors(async (req, res, next) => {
+  // console.log("Loggin, Cookies:", req.cookies);
   const { email, password } = req.body;
   if (!email || !password) {
     return next(new ErrorHandler("Email And Password Required", 400));
@@ -100,11 +101,14 @@ export const getUser = catchAsyncErrors(async (req, res, next) => {
 
 //! Logout User
 export const logout = catchAsyncErrors(async (req, res, next) => {
+  // console.log("Logging out, Cookies:", req.cookies);
   res
     .status(200)
     .cookie("jwt", "", {
       httpOnly: true,
-      expires: new Date(Date.now()),
+      expires: new Date(0),
+      sameSite: "none",
+      secure: process.env.NODE_ENV === "production",
     })
     .json({
       success: true,

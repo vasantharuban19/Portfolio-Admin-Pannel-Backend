@@ -12,6 +12,7 @@ import timeLineRouter from "./route/timeLineRouter.js";
 import applicatioRouter from "./route/applicationRouter.js";
 import skillRouter from "./route/skillRouter.js";
 import projectRouter from "./route/projectRouter.js";
+import { corsOption } from "./config/corsConfig.js";
 
 dotenv.config({ path: "./config/config.env" });
 
@@ -25,13 +26,8 @@ cloudinary.v2.config({
 
 const app = express();
 
-app.use(
-  cors({
-    origin: [process.env.PORTFOLIO_URL, process.env.DASHBOARD_URL],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+app.use(cors(corsOption));
+app.options("*", cors());
 
 app.use(cookieParser());
 app.use(express.json());
