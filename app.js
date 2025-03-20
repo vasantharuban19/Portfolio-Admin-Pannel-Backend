@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cloudinary from "cloudinary";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
@@ -12,8 +13,17 @@ import applicatioRouter from "./route/applicationRouter.js";
 import skillRouter from "./route/skillRouter.js";
 import projectRouter from "./route/projectRouter.js";
 
-const app = express();
 dotenv.config({ path: "./config/config.env" });
+
+const PORT = process.env.PORT || 5000;
+
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const app = express();
 
 app.use(
   cors({
@@ -40,7 +50,11 @@ app.use("/api/v1/softwareapplication", applicatioRouter);
 app.use("/api/v1/skill", skillRouter);
 app.use("/api/v1/project", projectRouter);
 
-connectDatabase();
+app.listen(PORT, () => {
+  connectDatabase();
+  console.log(`Server Listening at port ${PORT}`);
+});
+
 app.use(errorMiddleware);
 
 export default app;
