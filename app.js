@@ -12,6 +12,7 @@ import timeLineRouter from "./route/timeLineRouter.js";
 import applicatioRouter from "./route/applicationRouter.js";
 import skillRouter from "./route/skillRouter.js";
 import projectRouter from "./route/projectRouter.js";
+import indexRouter from "./route/indexRouter.js";
 import { corsOption } from "./config/corsConfig.js";
 
 dotenv.config({ path: "./config/config.env" });
@@ -39,6 +40,7 @@ app.use(
   })
 );
 
+app.use("/", indexRouter);
 app.use("/api/v1/message", messageRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/timeline", timeLineRouter);

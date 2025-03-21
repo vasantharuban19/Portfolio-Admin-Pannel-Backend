@@ -11,11 +11,9 @@ import {
   updateProfile,
 } from "../controller/userController.js";
 import { isAuthenticated } from "../middlewares/auth.js";
-import indexController from "../controller/indexController.js";
 
 const router = express.Router();
 
-router.get("/", indexController.home);
 router.post("/register", register);
 router.post("/login", login);
 router.get("/me", isAuthenticated, getUser);
