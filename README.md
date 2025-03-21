@@ -35,3 +35,23 @@ This is the **backend API** for the **MERN Portfolio Admin Panel**. It is built 
 ✅ **Deployed on Render** – Scalable and free hosting  
 
 ---
+
+## 📌 **API Endpoints**
+🔹 **Authentication**
+| Method  | Endpoint | Description | Auth required |
+|----------|--------------------|-----------------------------|-----------|
+| **POST** | /api/v1/user/login | Login and receive JWT token | NO |
+| **POST** | /api/v1/user/password/forgot | forgot password | NO |
+| **PUT** | /api/v1/user/password/rest/:token | reset password  | NO |
+| **GET** | /api/v1/user/logout | Logout and remove JWT token | Yes |
+| **GET** | /api/v1/user/me | Get logged-in user details | Yes |
+| **PUT** | /api/v1/user/update/me | update user profile details | Yes |
+| **PUT** | /api/v1/user/update/password | user can change the password | Yes |
+| **GET** | /api/v1/user/me | Get logged-in user details | Yes |
+| **GET** | /api/v1/user/portfolio/me | Get user details for potfolio | NO |
+
+---
+
+
+
+
