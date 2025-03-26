@@ -13,8 +13,10 @@ export const sendEmail = async (options) => {
   const mailOptions = {
     from: process.env.SMTP_MAIL,
     to: options.email,
+    replyTo: options.replyTo,
     subject: options.subject,
     text: options.message,
+    html: options.html,
   };
   await transpoter.sendMail(mailOptions);
 };

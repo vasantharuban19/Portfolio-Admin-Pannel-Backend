@@ -5,9 +5,10 @@ const messageSchema = new mongoose.Schema({
     type: String,
     minLength: [2, "Name Must Contain At Least 2 Characters!"],
   },
-  senderPhoneNo: {
+  senderEmail: {
     type: String,
-    required: [true, "Phone Number Required"],
+    required: [true, "Email is required"],
+    match: [/^\S+@\S+\.\S+$/, "Please enter a valid email address"],
   },
   subject: {
     type: String,
