@@ -1,4 +1,5 @@
 import express from "express";
+import dns from "dns";
 import dotenv from "dotenv";
 import cloudinary from "cloudinary";
 import cors from "cors";
@@ -15,6 +16,7 @@ import projectRouter from "./route/projectRouter.js";
 import indexRouter from "./route/indexRouter.js";
 import { corsOption } from "./config/corsConfig.js";
 
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 dotenv.config({ path: "./config/config.env" });
 
 const PORT = process.env.PORT || 5000;
@@ -37,7 +39,7 @@ app.use(
   fileUpload({
     useTempFiles: true,
     tempFileDir: "/tmp/",
-  })
+  }),
 );
 
 app.use("/", indexRouter);
