@@ -55,8 +55,10 @@ export const sendMessage = catchAsyncErrors(async (req, res, next) => {
       email: "vasanthruban1920@gmail.com",
       replyTo: senderEmail,
       subject: `New Contact Message from ${senderName}`,
+      message,
       html,
     });
+
     res.status(201).json({
       success: true,
       message: "Message sent successfully and email delivered!",
@@ -64,8 +66,9 @@ export const sendMessage = catchAsyncErrors(async (req, res, next) => {
     });
   } catch (error) {
     console.error("Email sending error:", error);
+
     return next(
-      new ErrorHandler("Message saved but email could not be sent", 500)
+      new ErrorHandler("Message saved but email could not be sent", 500),
     );
   }
 });
