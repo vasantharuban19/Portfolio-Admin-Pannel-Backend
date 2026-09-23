@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config({ path: "./config/config.env" });
+
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -8,8 +11,8 @@ export const sendEmail = async (options) => {
     to: [options.email],
     replyTo: options.replyTo,
     subject: options.subject,
-    html: options.html,
     text: options.message || "",
+    html: options.html,
   });
 
   if (error) {
