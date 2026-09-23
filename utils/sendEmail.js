@@ -1,26 +1,35 @@
-import nodeMailer from "nodemailer";
+import nodemailer from "nodemailer";
+
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT),
+  secure: Number(process.env.SMTP_PORT) === 465,
+  auth: {
+    user: process.env.SMTP_MAIL,
+    pass: process.env.SMTP_PASSWORD,
+  },
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
+});
 
 export const sendEmail = async (options) => {
-  const transpoter = nodeMailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT),
-    service: process.env.SMTP_SERVICE,
-    auth: {
-      user: process.env.SMTP_MAIL,
-      pass: process.env.SMTP_PASSWORD,
-    },
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 10000,
-  });
-
   const mailOptions = {
-    from: process.env.SMTP_MAIL,
+    from: `"Portfolio Contact" <${process.env.SMTP_MAIL}>`,
     to: options.email,
     replyTo: options.replyTo,
     subject: options.subject,
-    text: options.message,
+    text: options.message || "",
     html: options.html,
   };
-  await transpoter.sendMail(mailOptions);
+
+  return await transporter.sendMail(mailOptions);
 };
+
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("SMTP verification failed:", error);
+  } else {
+    console.log("SMTP server is ready");
+  }
+});
